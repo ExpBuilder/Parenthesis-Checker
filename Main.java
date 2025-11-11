@@ -1,8 +1,18 @@
+//  Class author:  Joe Jiao
+//  Date created:  11/10/2025
+//  General description: 
 public class Main {
   public static void main(String[] args) {
-    //System.out.println(validParantheses("({)}"));
-    System.out.println(validParantheses("(([)])", false));
+    String input = "akf{}0}";
+
+    System.out.println("\"" + input + "\" contains ");
+    if (validParantheses(input", false)) System.out.print("valid");
+    else System.out.print("invalid");
+    System.out.print(" delimiter notation");
   }
+
+  //  Pre-condition: 
+  //  Post-condition: 
 
   public static boolean validParantheses (String s, boolean prevSimplified) {
     // Removes all characters that are not some form of parantheses
