@@ -35,7 +35,7 @@ public class Main {
 
       for (int i = 0; i < simplified.length(); i++) {
         if (simplified.charAt(i) == "({[".charAt(j)) forward++;
-        if (simplified.charAt(i) == ")}]".charAt(j)) backward++;
+        else backward++;
       }
 
       if (forward != backward) return false;
@@ -46,14 +46,14 @@ public class Main {
     int parsForward = 0;
     int curliesForward = 0;
     int braketsForward = 0;
+    
     for (int i = 0; i < simplified.length(); i++) {
       if (simplified.charAt(i) == '(') parsForward++;
-      if (simplified.charAt(i) == '{') curliesForward++;
-      if (simplified.charAt(i) == '[') braketsForward++;
-
-      if (simplified.charAt(i) == ')') parsForward--;
-      if (simplified.charAt(i) == '}') curliesForward--;
-      if (simplified.charAt(i) == ']') braketsForward--;
+      else if (simplified.charAt(i) == '{') curliesForward++;
+      else if (simplified.charAt(i) == '[') braketsForward++;
+      else if (simplified.charAt(i) == ')') parsForward--;
+      else if (simplified.charAt(i) == '}') curliesForward--;
+      else (simplified.charAt(i) == ']') braketsForward--;
 
       if ((parsForward == -1) || (curliesForward == -1) || (braketsForward == -1)) return false;
     }
