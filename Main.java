@@ -13,7 +13,6 @@ public class Main {
 
   //  Pre-condition: 
   //  Post-condition: 
-
   public static boolean validParantheses (String s, boolean prevSimplified) {
     // Removes all characters that are not some form of parantheses
     String simplified = "";
@@ -55,7 +54,7 @@ public class Main {
       else if (simplified.charAt(i) == '}') curliesForward--;
       else braketsForward--;
 
-      if ((parsForward == -1) || (curliesForward == -1) || (braketsForward == -1)) return false;
+      if ((parsForward < 0) || (curliesForward < 0) || (braketsForward < 0)) return false;
     }
 
     
@@ -71,7 +70,7 @@ public class Main {
       char endChar = ")}]".charAt("({[".indexOf(simplified.charAt(0) + ""));
 
       while (simplified.charAt(endIndex) != endChar) endIndex++;
-
+      
         
       // Checks split result
       if (!validParantheses(simplified.substring(0, endIndex + 1), true)) return false;
