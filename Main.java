@@ -6,7 +6,7 @@ public class Main {
     String input = "akf{}0}";
 
     System.out.println("\"" + input + "\" contains ");
-    if (validParantheses(input", false)) System.out.print("valid");
+    if (validParantheses(input, false)) System.out.print("valid");
     else System.out.print("invalid");
     System.out.print(" delimiter notation");
   }
@@ -53,7 +53,7 @@ public class Main {
       else if (simplified.charAt(i) == '[') braketsForward++;
       else if (simplified.charAt(i) == ')') parsForward--;
       else if (simplified.charAt(i) == '}') curliesForward--;
-      else (simplified.charAt(i) == ']') braketsForward--;
+      else braketsForward--;
 
       if ((parsForward == -1) || (curliesForward == -1) || (braketsForward == -1)) return false;
     }
