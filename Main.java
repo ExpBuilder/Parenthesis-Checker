@@ -1,7 +1,7 @@
 public class Main {
   public static void main(String[] args) {
     //System.out.println(validParantheses("({)}"));
-    System.out.println(validParantheses("(){xzvszdfsz}()", false));
+    System.out.println(validParantheses("(([)])", false));
   }
 
   public static boolean validParantheses (String s, boolean prevSimplified) {
@@ -9,13 +9,16 @@ public class Main {
     String simplified = "";
     if (!prevSimplified) {
       for (int i = 0; i < s.length(); i++) {
-        if ("({[]})".indexOf(s.substring(i, i+1)) != -1) simplified += s.substring(i, i+1);
+        if ("({[]})".indexOf(s.charAt(i) + "") != -1) simplified += s.charAt(i) + "";
       }
     } else simplified = s;
 
-    // Checks for corresponding
+
+    // Checks validity
     if (simplified.length() % 2 == 1) return false;
 
+
+    // Checks for corresponding
     for (int j = 0; j < "({[".length(); j++) {
       int forward = 0;
       int backward = 0;
@@ -27,10 +30,9 @@ public class Main {
 
       if (forward != backward) return false;
     }
-    System.out.println("Corresponding exist");
 
 
-    // Checks for starting facing the right direction
+    // Checks for correct directions
     int parsForward = 0;
     int curliesForward = 0;
     int braketsForward = 0;
@@ -45,31 +47,33 @@ public class Main {
 
       if ((parsForward == -1) || (curliesForward == -1) || (braketsForward == -1)) return false;
     }
-    System.out.println("Correct Directions");
+
     
     // Removes clearly correct outers
-    while ((simplified.length() > 0) && (simplified.charAt(0) == simplified.charAt(simplified.length() - 1))) {
-      simplified = simplified.substring(1, simplified.length() - 2);
+    while ((simplified.length() > 0) && ("([{".indexOf(simplified.charAt(0) + "") == ")]}".indexOf(simplified.charAt(simplified.length() - 1) + ""))) {
+      simplified = simplified.substring(1, simplified.length() - 1);
     }
 
-    // Splits slimplified
-    if (simplified.length() > 2) {
-      while (simplified.length() > 0) {
-        int endIndex = 1;
-        char endChar = ")}]".charAt("({[".indexOf(simplified.substring(0,1)));
+    // Checks splits
+    while (simplified.length() > 0) {
+      // Creates splits
+      int endIndex = 1;
+      char endChar = ")}]".charAt("({[".indexOf(simplified.charAt(0) + ""));
 
-        while (simplified.charAt(endIndex) != endChar) endIndex++;
-        
-        // Checks split result
-        if (!validParantheses(simplified.substring(0, endIndex + 1), true)) return false;
-        
-        // Condenses simplified
-        simplified = simplified.substring(endIndex + 1);
+      while (simplified.charAt(endIndex) != endChar) endIndex++;
 
-        if (simplified.length() % 2 == 1) return false;
-      }
-      return true;
+        
+      // Checks split result
+      if (!validParantheses(simplified.substring(0, endIndex + 1), true)) return false;
+        
+
+      // Condenses simplified
+      simplified = simplified.substring(endIndex + 1);
+
+      
+      // Checks if simplified is still vaild
+      if (simplified.length() % 2 == 1) return false;
     }
-    else return true;
+    return true;
   }
 }
