@@ -31,48 +31,27 @@ public class Main {
       if ("(){}[]".indexOf(s.charAt(i)) != -1) simplified += s.charAt(i);
     }
 
+    if (simplified.length() % 2 == 1) return false;
 
-    // Checks for correct amounts and ordering(ish)
-    int[] typeAmount = {0, 0, 0, 0, 0, 0};
-    
-    for (int i = 0; i < simplified.length(); i++) {
-      typeAmount["(){}[]".indexOf(simplified.charAt(i))]++;
+    for (int i = simplified.length() - 1; i >= 0; i--) {
+      if ("([{".indexOf(simplified.charAt(i)) != -1) {
+        int char1Type = "([{".indexOf(simplified.charAt(i));
+        int char2Type = ")]}".indexOf(simplified.charAt(i + 1));
 
-      for (int k = 0; k < 3; k++) {
-        if (typeAmount[2 * k] < typeAmount[2 * k + 1]) return false;
+        if (char1Type == char2Type) {
+          if (i + 2 > simplified.length()) {
+            simplified = simplified.substring(0, i);
+          } else {
+            simplified = simplified.substring(0, i) + simplified.substring(i + 2);
+          }
+
+          i = simplified.length() - 1;
+
+        } else return false;
       }
     }
-    for (int k = 0; k < 3; k++) {
-      if (typeAmount[2 * k] - typeAmount[2 * k + 1] != 0) return false;
-    }
-    
 
-    // Removes clearly correct outers
-    while ((simplified.length() > 0) && ("([{".indexOf(simplified.charAt(0)) == ")]}".indexOf(simplified.charAt(simplified.length() - 1)))) {
-      simplified = simplified.substring(1, simplified.length() - 1);
-    }
-
-
-    // Checks splits
-    while (simplified.length() > 0) {
-      // Creates splits
-      int endIndex = 1;
-      char endChar = ")}]".charAt("({[".indexOf(simplified.charAt(0)));
-
-      while (simplified.charAt(endIndex) != endChar) endIndex++;
-
-      String split = simplified.substring(0, endIndex + 1);
-      System.out.println(split);
-        
-      // Checks split result
-      if (split.length() % 2 == 1) return false;
-
-      if (!validParantheses(split)) return false;
-        
-      simplified = simplified.substring(endIndex + 1);
-    }
-
-
-    return true;
+    if (simplified.length() > 0) return false;
+    else return true;
   }
 }
