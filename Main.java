@@ -5,23 +5,18 @@ public class Main {
   public static void main(String[] args) {
     String input = "akf{}0}";
 
-    System.out.println("\"" + input + "\" contains ");
-    if (validParantheses(input, false)) System.out.print("valid");
-    else System.out.print("invalid");
-    System.out.print(" delimiter notation");
+    if (validParantheses(input)) System.out.println("\"" + input + "\" contains vaid delimiter notation");
+    else System.out.println("\"" + input + "\" contains invaid delimiter notation");
   }
 
   //  Pre-condition: 
   //  Post-condition: 
-  public static boolean validParantheses (String s, boolean prevSimplified) {
+  public static boolean validParantheses (String s) {
     // Removes all characters that are not some form of parantheses
-    String simplified = "";
-    if (!prevSimplified) {
-      for (int i = 0; i < s.length(); i++) {
-        if ("({[]})".indexOf(s.charAt(i) + "") != -1) simplified += s.charAt(i) + "";
-      }
-    } else simplified = s;
-
+    String simplified = s;
+    for (int i = 0; i < s.length(); i++) {
+      if ("({[]})".indexOf(s.charAt(i) + "") != -1) simplified += s.charAt(i) + "";
+    }
 
     // Checks validity
     if (simplified.length() % 2 == 1) return false;
@@ -73,7 +68,7 @@ public class Main {
       
         
       // Checks split result
-      if (!validParantheses(simplified.substring(0, endIndex + 1), true)) return false;
+      if (!validParantheses(simplified.substring(0, endIndex + 1))) return false;
         
 
       // Condenses simplified
