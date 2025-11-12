@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 //  Class author:  Joe Jiao
 //  Date created:  11/10/2025
-//  General description: 
+//  General description: The project takes user input and outputs wether the user input follows correct delimiter notation.
 public class Main {
   public static void main(String[] args) {
     // Scanner definition
@@ -14,7 +14,7 @@ public class Main {
 
     String input = scanner.nextLine();
 
-    if (validParantheses(input)) System.out.println("\"" + input + "\" contains vaid delimiter notation");
+    if (validDelimiter(input)) System.out.println("\"" + input + "\" contains vaid delimiter notation");
     else System.out.println("\"" + input + "\" contains invaid delimiter notation");
 
 
@@ -22,9 +22,14 @@ public class Main {
     scanner.close();
   }
 
-  //  Pre-condition: 
-  //  Post-condition: 
-  public static boolean validParantheses (String s) {
+  //  Pre-condition: The function requires the input of a string
+  /*  Post-condition: The function will return a boolean on wether the input had correct delimiter notation. 
+  The rules for delimiter notation are: 
+  - Open brackets must be closed by the same type of brackets.
+  - Open brackets must be closed in the correct order.
+  - Every close bracket has a corresponding open bracket of the same type.
+  */
+  public static boolean validDelimiter (String s) {
     // Removes all characters that are not some form of parantheses
     String simplified = "";
     for (int i = 0; i < s.length(); i++) {
