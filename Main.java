@@ -38,7 +38,7 @@ public class Main {
 
     if (simplified.length() % 2 == 1) return false;
 
-    for (int i = simplified.length() - 1; i >= 0; i--) {
+    for (int i = simplified.length() - 2; i >= 0; i--) {
       if ("([{".indexOf(simplified.charAt(i)) != -1) {
         int char1Type = "([{".indexOf(simplified.charAt(i));
         int char2Type = ")]}".indexOf(simplified.charAt(i + 1));
